@@ -1,0 +1,84 @@
+extends ../layout
+
+block content
+
+    //信息弹出框  --  BEGIN
+    #informationTip.tipMsg
+    //信息弹出框  --  END
+    .container
+        .row
+            .col-xs-12.col-sm-3
+                div.list-group.bg-white.select-item.active
+                    a.list-group-item.disabled(href="#hudong",data-toggle="tab") 互动设置
+                div.list-group.bg-white.select-item
+                    a.list-group-item(href="#msg",data-toggle="tab") 信息设置
+            .col-xs-12.col-sm-9
+                .fade.in.setting-panel.active#hudong(style='height:0; min-height:600px; min-width:800px;')
+                    section
+                .fade.setting-panel#msg
+                    section.panel.panel-default.portlet-item
+                        header.panel-heading 个人信息
+                        section.panel-body
+                            form.form-horizontal#updateMessageForm
+                                input(type="hidden",name="id",value="#{user.id}")
+                                input(type="hidden",id="personstatus",name="personstatus",value="#{user.personstatus}")
+                                .form-group.form-control-static
+                                    label.col-sm-2.control-label(for="inputUserName") 用户名：
+                                    .col-sm-10
+                                        p#inputUserName.form-control-static(name="username") #{user.username}
+                                .form-group.form-control-static
+                                    label.col-sm-2.control-label(for="inputNickName") 昵称
+                                    .col-sm-10
+                                        input#inputNickName.form-control(type="text" , name="nickname" , value="#{user.nickname}")
+                                .form-group.form-control-static
+                                    label.col-sm-2.control-label(for="inputPersonStatus") 身份：
+                                    .col-sm-10
+                                        p#inputPersonStatus.form-control-static(name="personstatus") #{user.personstatus}
+                                - if (user.personstatus == "主播")
+                                    .form-group.form-control-static
+                                        label.col-sm-2.control-label(for="inputPersonPage") 我的房间：
+                                        .col-sm-10
+                                            p#inputPersonPage.form-control-static(name="personpage") #{perpage}
+                                    .form-group.form-control-static
+                                        label.col-sm-2.control-label(for="inputLiveUrl") 我的流地址：
+                                        .col-sm-10
+                                            p#inputLiveUrl.form-control-static(name="liveUrl") #{user.liveurl}
+                                    .form-group.form-control-static
+                                        label.col-sm-2.control-label(for="inputPoster") 封面
+                                        .col-sm-10
+                                            input#inputPoster.form-control(type="text" , name="poster" , value="#{user.poster}")
+                                .form-group.form-control-static
+                                    .col-sm-offset-2.col-sm-10
+                                        button.btn.btn-primary.updatePersonMsg(type="button") 修改信息
+                    section.panel.panel-default.portlet-item
+                        header.panel-heading 安全设置
+                        section.panel-body
+                            form.form-horizontal#updatePassForm
+                                input(type="hidden",name="id",value="#{user.id}")
+                                .form-group.form-control-static
+                                    label.col-sm-2.control-label(for="inputOldPassword") 原密码
+                                    .col-sm-10
+                                        input#inputOldPassword.form-control(type="password" , name="oldpassword")
+                                .form-group.form-control-static
+                                    label.col-sm-2.control-label(for="inputNewPassword") 新密码
+                                    .col-sm-10
+                                        input#inputNewPassword.form-control(type="password" , name="newpassword")
+                                .form-group.form-control-static
+                                    label.col-sm-2.control-label(for="inputReNewPassword") 确认密码
+                                    .col-sm-10
+                                        input#inputReNewPassword.form-control(type="password" , name="renewpassword")
+                                .form-group.form-control-static
+                                    .col-sm-offset-2.col-sm-10
+                                        button.btn.btn-primary.updatePersonPwd(type="button") 修改密码
+
+    script(type="text/javascript",src="/js/tool/aid.js")
+    script(type="text/javascript",src="/js/information/index.js")
+    script(src="http://o6p1020jg.bkt.clouddn.com/actilive.js",type="text/javascript")
+    script.
+      new ActiLive({
+        appRootId: 'hudong',
+        //- apiHost: '#{apiHost}', // 生产时不要填，默认是 live.videojj.com
+        platformId: '#{platformId}',
+        token: '#{token}',
+      })
+          
